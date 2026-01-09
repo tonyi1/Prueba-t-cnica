@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #00ef5c99;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header,
+footer {
+    text-align: center;
+    background: #1377e9;
+    color: white;
+    padding: 10px 0;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.TareasSeleccion {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(4, 165, 146, 0.785);
+    width: 100%;
+    max-width: 600px;
+}
+
+form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#nuevaTarea {
+    flex: 1;
+    padding: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+#TareasSeleccion {
+    margin-top: 20px;
+    list-style: none;
+}
+
+.listaTareas {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.tarea.completada span {
+    text-decoration: line-through;
+    color: rgb(158, 33, 33);
+}
+
+.tarea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.acciones {
+    display: flex;
+    gap: 8px;
+}
+
+.btnCompletar {
+    background-color: #2196f3;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.btnEliminar {
+    background-color: #e53935;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.tarea.completada span {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+    .TareasSeleccion {
+        width: 100%;
+        padding: 15px;
+    }
+}
