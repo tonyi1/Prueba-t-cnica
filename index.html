@@ -23,10 +23,20 @@
                 <div class="filtros">
                     <button id="filtroTodos" class="activo">Todos</button>
                     <button id="filtroPendientes">Pendientes</button>
-                    <button id="filtroCompletadas">Completados</button>
+                    <button id="filtroCompletados">Completados</button>
                 </div>
             </div>
-            <ul id="listaTareas"></ul>
+            <table class="tablaTareas">
+                <thead>
+                    <tr>
+                        <th>Tarea</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="listaTareas"></tbody>
+            </table>
+
         </section>
     </main>
     <footer>

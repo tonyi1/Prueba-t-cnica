@@ -8,15 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //funciones
     function crearTarea(texto, completada = false) {
-        const li = document.createElement("li");
-        li.classList.add("tarea");
-        if (completada) li.classList.add("completada");
+        const tr = document.createElement("tr");
+        tr.classList.add("tarea");
+        if (completada) tr.classList.add("completada");
 
-        const span = document.createElement("span");
-        span.textContent = texto;
+        const tdTexto = document.createElement("td");
+        tdTexto.textContent = texto;
 
-        const contenedorBotones = document.createElement("div");
-        contenedorBotones.classList.add("acciones");
+        const tdEstado = document.createElement("td");
+        tdEstado.textContent = completada ? "Completada" : "Pendiente";
+
+        const tdAcciones = document.createElement("td");
 
         const btnCompletar = document.createElement("button");
         btnCompletar.textContent = "🔵";
@@ -27,38 +29,45 @@ document.addEventListener("DOMContentLoaded", () => {
         btnEliminar.classList.add("btnEliminar");
 
         btnCompletar.addEventListener("click", () => {
-            li.classList.toggle("completada");
+            tr.classList.toggle("completada");
+            const esCompletada = tr.classList.contains("completada");
+            tdEstado.textContent = esCompletada ? "Completada" : "Pendiente";
             guardarTareas();
             actualizarContador();
         });
 
         btnEliminar.addEventListener("click", () => {
             if (confirm("¿Seguro que quieres eliminar esta tarea?")) {
-                li.remove();
+                tr.remove();
                 guardarTareas();
                 actualizarContador();
             }
         });
 
-        contenedorBotones.appendChild(btnCompletar);
-        contenedorBotones.appendChild(btnEliminar);
+        tdAcciones.appendChild(btnCompletar);
+        tdAcciones.appendChild(btnEliminar);
 
-        li.appendChild(span);
-        li.appendChild(contenedorBotones);
-        listaTareas.appendChild(li);
+        tr.appendChild(tdTexto);
+        tr.appendChild(tdEstado);
+        tr.appendChild(tdAcciones);
+
+        listaTareas.appendChild(tr);
+
         guardarTareas();
         actualizarContador();
     }
 
+
     function guardarTareas() {
         const tareas = [];
 
-        document.querySelectorAll("#listaTareas .tarea").forEach(li => {
+        document.querySelectorAll("#listaTareas .tarea").forEach(tr => {
             tareas.push({
-                texto: li.querySelector("span").textContent,
-                completada: li.classList.contains("completada")
+                texto: tr.children[0].textContent,
+                completada: tr.classList.contains("completada")
             });
         });
+
 
         localStorage.setItem("tareas", JSON.stringify(tareas));
     }
@@ -91,26 +100,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     filtroTodos.addEventListener("click", () => {
-        document.querySelectorAll("#listaTareas .tarea").forEach(li => {
-            li.style.display = "flex";
+        document.querySelectorAll("#listaTareas .tarea").forEach(tr => {
+            tr.style.display = "";
         });
     });
 
     filtroPendientes.addEventListener("click", () => {
-        document.querySelectorAll("#listaTareas .tarea").forEach(li => {
-            li.style.display = li.classList.contains("completada")
+        document.querySelectorAll("#listaTareas .tarea").forEach(tr => {
+            tr.style.display = tr.classList.contains("completada")
                 ? "none"
-                : "flex";
+                : "";
         });
     });
 
     filtroCompletados.addEventListener("click", () => {
-        document.querySelectorAll("#listaTareas .tarea").forEach(li => {
-            li.style.display = li.classList.contains("completada")
-                ? "flex"
+        document.querySelectorAll("#listaTareas .tarea").forEach(tr => {
+            tr.style.display = tr.classList.contains("completada")
+                ? ""
                 : "none";
         });
     });
+
 
     cargarTareas();
     actualizarContador();
